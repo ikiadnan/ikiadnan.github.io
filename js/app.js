@@ -16,6 +16,8 @@
  * @author: Christoph Schäbel
  */
 
+// import { MapMoveMarker } from 'map.js';
+
 var websocketclient = {
     'client': null,
     'lastMessageId': 1,
@@ -120,7 +122,9 @@ var websocketclient = {
             'subscriptionId': subscription.id,
             'color': websocketclient.getColorForSubscription(subscription.id)
         };
-
+		var location = message.payloadString.split(",", 2);
+		// MAP.moveMarker(message.destinationName,location[0],location[1]);
+		MAP.moveMarker("Marker",parseFloat(location[1]),parseFloat(location[0]));
         console.log(messageObj);
         messageObj.id = websocketclient.render.message(messageObj);
         websocketclient.messages.push(messageObj);
