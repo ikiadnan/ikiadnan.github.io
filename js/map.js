@@ -66,6 +66,10 @@ var MAP =
 		marker.setStyle(this.styleMarker);
 		
 		sourceVector.addFeatures([marker]);
+		this.MyMap.setView(new ol.View({
+				center: ol.proj.fromLonLat([lat,lon]),
+				zoom: 15 //Initial Zoom Level
+			}));
 	},
 	
 	moveMarkerTo : function(markerId='Marker',lat=110.370500, lon=-7.823900)

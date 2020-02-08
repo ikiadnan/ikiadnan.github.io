@@ -67,88 +67,88 @@ limitations under the License.
             <div class="icon-arrow-chevron"></div>
         </a>
     </div>
-    <div class="large-12 columns" id="conniMain">
-        <div class="panel">
-            <div class="row">
-                <form class="custom">
-                    <div class="large-5 columns">
-                        <label>Host *</label>
-                        <input id="urlInput" type="text" value="broker.mqttdashboard.com">
-                    </div>
+    <!-- <div class="large-12 columns" id="conniMain"> -->
+        <!-- <div class="panel"> -->
+            <!-- <div class="row"> -->
+                <!-- <form class="custom"> -->
+                    <!-- <div class="large-5 columns"> -->
+                        <!-- <label>Host *</label> -->
+                        <!-- <input id="urlInput" type="text" value="broker.mqttdashboard.com"> -->
+                    <!-- </div> -->
 
-                    <div class="large-1 columns">
-                        <label>Port *</label>
-                        <input id="portInput" type="text" value="8000"/>
-                    </div>
+                    <!-- <div class="large-1 columns"> -->
+                        <!-- <label>Port *</label> -->
+                        <!-- <input id="portInput" type="text" value="8000"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-4 columns">
-                        <label>ClientID *</label>
-                        <input id="clientIdInput" type="text"/>
-                    </div>
+                    <!-- <div class="large-4 columns"> -->
+                        <!-- <label>ClientID *</label> -->
+                        <!-- <input id="clientIdInput" type="text"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-2 columns">
-                        <a id="connectButton" class="small button" onclick="websocketclient.connect();">Connect</a>
-                    </div>
+                    <!-- <div class="large-2 columns"> -->
+                        <!-- <a id="connectButton" class="small button" onclick="websocketclient.connect();">Connect</a> -->
+                    <!-- </div> -->
 
-                    <div class="large-2 columns">
-                        <a id="disconnectButton" class="small button"
-                           onclick="websocketclient.disconnect();">Disconnect</a>
-                    </div>
+                    <!-- <div class="large-2 columns"> -->
+                        <!-- <a id="disconnectButton" class="small button" -->
+                           <!-- onclick="websocketclient.disconnect();">Disconnect</a> -->
+                    <!-- </div> -->
 
-                    <div class="large-4 columns">
-                        <label>Username</label>
-                        <input id="userInput" type="text"/>
-                    </div>
+                    <!-- <div class="large-4 columns"> -->
+                        <!-- <label>Username</label> -->
+                        <!-- <input id="userInput" type="text"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-3 columns">
-                        <label>Password</label>
-                        <input id="pwInput" type="password"/>
-                    </div>
+                    <!-- <div class="large-3 columns"> -->
+                        <!-- <label>Password</label> -->
+                        <!-- <input id="pwInput" type="password"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-2 columns">
-                        <label>Keep Alive</label>
-                        <input id="keepAliveInput" type="text" value="60"/>
-                    </div>
+                    <!-- <div class="large-2 columns"> -->
+                        <!-- <label>Keep Alive</label> -->
+                        <!-- <input id="keepAliveInput" type="text" value="60"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-1 columns">
-                        <label>SSL</label>
-                        <input id="sslInput" type="checkbox"/>
-                    </div>
+                    <!-- <div class="large-1 columns"> -->
+                        <!-- <label>SSL</label> -->
+                        <!-- <input id="sslInput" type="checkbox"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-2 columns">
-                        <label>Clean Session</label>
-                        <input class="checky" id="cleanSessionInput" type="checkbox" checked="checked"
-                               disabled="disabled"/>
-                    </div>
+                    <!-- <div class="large-2 columns"> -->
+                        <!-- <label>Clean Session</label> -->
+                        <!-- <input class="checky" id="cleanSessionInput" type="checkbox" checked="checked" -->
+                               <!-- disabled="disabled"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-8 columns">
-                        <label>Last-Will Topic</label>
-                        <input id="lwTopicInput" type="text"/>
-                    </div>
+                    <!-- <div class="large-8 columns"> -->
+                        <!-- <label>Last-Will Topic</label> -->
+                        <!-- <input id="lwTopicInput" type="text"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-2 columns">
-                        <label>Last-Will QoS</label>
-                        <select id="lwQosInput">
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                        </select>
-                    </div>
+                    <!-- <div class="large-2 columns"> -->
+                        <!-- <label>Last-Will QoS</label> -->
+                        <!-- <select id="lwQosInput"> -->
+                            <!-- <option>0</option> -->
+                            <!-- <option>1</option> -->
+                            <!-- <option>2</option> -->
+                        <!-- </select> -->
+                    <!-- </div> -->
 
-                    <div class="large-2 columns">
-                        <label>Last-Will Retain</label>
-                        <input class="checky" id="LWRInput" type="checkbox"/>
-                    </div>
+                    <!-- <div class="large-2 columns"> -->
+                        <!-- <label>Last-Will Retain</label> -->
+                        <!-- <input class="checky" id="LWRInput" type="checkbox"/> -->
+                    <!-- </div> -->
 
-                    <div class="large-12 columns">
-                        <label>Last-Will Messsage</label>
-                        <textarea id="LWMInput"></textarea>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                    <!-- <div class="large-12 columns"> -->
+                        <!-- <label>Last-Will Messsage</label> -->
+                        <!-- <textarea id="LWMInput"></textarea> -->
+                    <!-- </div> -->
+                <!-- </form> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
+<!-- </div> -->
 <div class="empty"></div>
 <div id="publish-sub" class="row large-12 columns">
     <div class="columns large-8">
@@ -343,11 +343,26 @@ limitations under the License.
                 $("#colorChooser").minicolors('value', rndColor);
             }
         });
-
+		websocketclient.connect();
         websocketclient.render.toggle('publish');
         websocketclient.render.toggle('messages');
         websocketclient.render.toggle('sub');
     });
+	
+	
+function disconnect(){
+   if (websocketclient.connected)
+   {
+		console.log("disconnecting...");
+		websocketclient.disconnect();
+   }
+   else
+   {
+		console.log("returning...");
+   }
+    return null;
+}
+window.onbeforeunload = disconnect;
 </script>
 </body>
 </html>

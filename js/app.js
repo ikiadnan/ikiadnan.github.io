@@ -28,18 +28,18 @@ var websocketclient = {
 
     'connect': function () {
 
-        var host = $('#urlInput').val();
-        var port = parseInt($('#portInput').val(), 10);
-        var clientId = $('#clientIdInput').val();
-        var username = $('#userInput').val();
-        var password = $('#pwInput').val();
-        var keepAlive = parseInt($('#keepAliveInput').val());
-        var cleanSession = $('#cleanSessionInput').is(':checked');
-        var lwTopic = $('#lwTopicInput').val();
-        var lwQos = parseInt($('#lwQosInput').val());
-        var lwRetain = $('#LWRInput').is(':checked');
-        var lwMessage = $('#LWMInput').val();
-        var ssl = $('#sslInput').is(':checked');
+        var host = "broker.mqttdashboard.com";
+        var port = 8000;
+        var clientId = "DshBrdTrckrInt";
+        var username = "";
+        var password = "";
+        var keepAlive = 60;
+        var cleanSession = true;
+        var lwTopic = "";
+        var lwQos = 0;
+        var lwRetain = false;
+        var lwMessage = "";
+        var ssl = false;
 
         this.client = new Messaging.Client(host, port, clientId);
         this.client.onConnectionLost = this.onConnectionLost;
