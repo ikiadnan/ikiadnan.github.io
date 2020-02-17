@@ -33,7 +33,7 @@ var MAP =
 					// source : new ol.source.OSM(),
 					source : new ol.source.XYZ({
 						attributions: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ' +'<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-						url: 'https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=+hhrw4qZsZwX7gNfZy8kI',
+						url: 'https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=hhrw4qZsZwX7gNfZy8kI',
 						tileSize: 512
 					}),
 				}),
