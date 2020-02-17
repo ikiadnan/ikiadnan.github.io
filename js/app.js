@@ -124,7 +124,7 @@ var websocketclient = {
         };
 		var location = message.payloadString.split(",", 2);
 		// MAP.moveMarker(message.destinationName,location[0],location[1]);
-		MAP.moveMarker("Marker",parseFloat(location[1]),parseFloat(location[0]));
+		MAP.moveMarker(message.destinationName,parseFloat(location[1]),parseFloat(location[0]));
         console.log(messageObj);
         messageObj.id = websocketclient.render.message(messageObj);
         websocketclient.messages.push(messageObj);

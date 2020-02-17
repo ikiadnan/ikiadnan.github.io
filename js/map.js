@@ -4,32 +4,47 @@ var MAP =
 	layerVector : null,
 	sourceVector : null,
 	iconGeometry : null, 
-	isFirstTime : true,
 	styleMarker : null,
+	lineLayer : null,
+	sourceLineVector : null,
+	previewLine : null,
+	currentLat : null,
+	currentLon : null,
 	createMap : function()
 	{
-		sourceVector = new ol.source.Vector();
+		this.sourceVector = new ol.source.Vector();
 		this.layerVector = new ol.layer.Vector({
-			source : sourceVector,
+			source : this.sourceVector,
 		});
-		//this.addMarker();
+		this.sourceLineVector = new ol.source.Vector();
+		this.lineLayer = new ol.layer.Vector({
+		  source: this.sourceLineVector,
+		  style: new ol.style.Style({
+			stroke: new ol.style.Stroke({
+			  color: 'rgba(255, 0, 0, 0.8)',
+			  width: 6
+			})
+		  })
+		});
 		this.MyMap = new ol.Map({
 			target : 'map',
 			layers : [
 				new ol.layer.Tile({
 					source : new ol.source.OSM(),
+					// source : new ol.source.XYZ({
+						// attributions: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> ' +'<a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+						// url: 'https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=+hhrw4qZsZwX7gNfZy8kI',
+						// tileSize: 512
+					// }),
 				}),
+				this.lineLayer,
 				this.layerVector,
 			],
-			
-			
 			view : new ol.View({
-				center: ol.proj.fromLonLat([110.370500,-7.823900]),
-				zoom: 15 //Initial Zoom Level
+				center: ol.proj.fromLonLat([115,-8]),
+				zoom: 4.5 //Initial Zoom Level
 			}),
 		});
-		
-		//this.moveMarkerTo('Marker',lat=110.380500, lon=-7.833900);
 	},
 	
 	addMarker : function(markerName='Marker',lat=110.370500, lon=-7.823900)
@@ -45,10 +60,20 @@ var MAP =
 		marker.setId(markerName);
 		
 		this.styleMarker = new ol.style.Style({
-			image : new ol.style.Icon({
-				scale : .05,
-				src : 'assets/location.png',
-				anchor : [.5, .5,],
+			// image : new ol.style.Icon({
+				// scale : .05,
+				// src : 'assets/location.png',
+				// anchor : [.5, .5,],
+			// }),
+			image : new ol.style.Circle({
+				radius: 8,
+				fill: new ol.style.Fill({
+					color: 'rgba(52, 198, 235, 0.8)',
+				}),
+				stroke: new ol.style.Stroke({
+					color: 'white',
+					width: 2
+				}),
 			}),
 			text: new ol.style.Text({
 				text: markerName ,//+ ': ' + lat + ' , ' + lon,
@@ -65,44 +90,55 @@ var MAP =
 		
 		marker.setStyle(this.styleMarker);
 		
-		sourceVector.addFeatures([marker]);
+		this.sourceVector.addFeatures([marker]);
 		this.MyMap.setView(new ol.View({
 				center: ol.proj.fromLonLat([lat,lon]),
 				zoom: 15 //Initial Zoom Level
 			}));
-	},
-	
-	moveMarkerTo : function(markerId='Marker',lat=110.370500, lon=-7.823900)
-	{
-		var px = this.MyMap.getPixelFromLonLat(new ol.proj.fromLonLat(lat,lon));
-		var marker = sourceVector.getFeatureById(markerId);
-		marker.moveTo(px);
+		this.previewLine = new ol.Feature({
+			geometry: new ol.geom.LineString([]),
+			name: 'TrackingLine'
+		});
+		this.previewLine.setId('TrackingLine');
+		this.previewLine.getGeometry().appendCoordinate(new ol.proj.transform([lat,lon], 'EPSG:4326','EPSG:3857'));
+		this.sourceLineVector.addFeatures([this.previewLine]);
 	},
 	
 	moveMarker : function(markerId='Marker',lat=110.370500, lon=-7.823900)
 	{
-		//console.log(markerId + lat +" " + lon);
-		//if( this.iconGeometry == null)
-		if( this.isFirstTime)
+		var marker = this.sourceVector.getFeatureById(markerId);
+		if( marker == null )
 		{
 			this.addMarker(markerId,lat, lon);
-			this.isFirstTime = false;
+			this.currentLat = lat;
+			this.currentLon = lon;
 		}
 		else
 		{
 			console.log("Moving marker...");
-			var marker = sourceVector.getFeatureById(markerId);
 			marker.getGeometry().setCoordinates(ol.proj.transform([lat,lon], 'EPSG:4326','EPSG:3857'));
-			//var lonlat = new OpenLayers.LonLat(lon, lat);
-			//this.MyMap.panTo(ol.proj.fromLonLat(lon,lat));
-			//this.MyMap.getView().setCenter(ol.proj.fromLonLat(lon,lat));
-			//this.moveMarkerTo(markerId,lat,lon);
-			//this.MyMap.render();
+			var points = new Array(
+				new ol.geom.Point(this.currentLat,this.currentLon),
+				new ol.geom.Point(lat,lon)
+			);
+			var line = this.sourceLineVector.getFeatureById('TrackingLine');
+			if( line == null )
+			{
+				console.log('line is not found');
+				console.log('Features:');
+				console.log(this.sourceLineVector.getFeatures());
+			}
+			else
+			{
+				console.log('line is found');
+				line.getGeometry().appendCoordinate(new ol.proj.transform([lat,lon], 'EPSG:4326','EPSG:3857'));
+				console.log('coordinates:');
+				console.log(line.getGeometry().getCoordinates());
+			}
+			this.currentLat = lat;
+			this.currentLon = lon;
 		}
 	},
 }
-// export function MapMoveMarker(markerId='Marker',lat=110.370500, lon=-7.823900)
-// {
-	// MAP.moveMarker(markerId,lat, lon)
-// }
-MAP.createMap();
+
+window.onload = MAP.createMap();
