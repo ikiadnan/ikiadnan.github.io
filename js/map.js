@@ -21,7 +21,7 @@ var MAP =
 		  source: this.sourceLineVector,
 		  style: new ol.style.Style({
 			stroke: new ol.style.Stroke({
-			  color: 'rgba(255, 0, 0, 0.8)',
+			  color: 'rgba(255, 0, 0, 0.5)',
 			  width: 6
 			})
 		  })
@@ -68,7 +68,7 @@ var MAP =
 			image : new ol.style.Circle({
 				radius: 8,
 				fill: new ol.style.Fill({
-					color: 'rgba(52, 198, 235, 0.8)',
+					color: 'rgba(43, 166, 203, 0.8)',
 				}),
 				stroke: new ol.style.Stroke({
 					color: 'white',
